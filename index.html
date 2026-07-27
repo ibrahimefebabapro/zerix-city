@@ -351,9 +351,21 @@ bottom:12px;
 
 <script>
 const songs = [
-  { name: 'music1.mp3', file: 'music1.mp3' },
-  { name: 'music2.mp3', file: 'music2.mp3' },
-  { name: 'music3.mp3', file: 'music3.mp3' }
+  {
+    name: "Şarkı 1",
+    artist: "ZERIX CITY",
+    file: "./music1.mp3"
+  },
+  {
+    name: "Şarkı 2",
+    artist: "ZERIX CITY",
+    file: "./music2.mp3"
+  },
+  {
+    name: "Şarkı 3",
+    artist: "ZERIX CITY",
+    file: "./music3.mp3"
+  }
 ];
 
 const audio = document.getElementById('audio');
@@ -395,10 +407,14 @@ function loadSong(index){
   renderPlaylist();
 }
 
-function playMusic(){
-  audio.play();
-  isPlaying = true;
-  playBtn.textContent = '⏸';
+async function playMusic(){
+    try{
+        await audio.play();
+        isPlaying = true;
+        playBtn.textContent = '⏸';
+    }catch(err){
+        console.log("Müzik başlatılamadı:", err);
+    }
 }
 
 function pauseMusic(){
