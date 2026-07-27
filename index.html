@@ -43,8 +43,13 @@ animation:bg 6s infinite alternate;
 width:340px;
 opacity:0;
 transform:scale(.2) rotate(-20deg);
-animation:intro 3s forwards;
 filter:drop-shadow(0 0 40px red);
+transform-origin:center center;
+animation:
+intro 3s forwards,
+floatLogo 5s ease-in-out infinite 3s,
+rotateLogo 20s linear infinite 3s,
+glow 2.5s ease-in-out infinite 3s;
 }
 
 @keyframes intro{
