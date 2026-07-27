@@ -1,581 +1,239 @@
 <!DOCTYPE html>
-<html lang='tr'>
+<html lang="tr">
 <head>
-<meta charset='UTF-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ZERIX CITY</title>
+
 <style>
-  .streamers{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-margin-top:15px;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
 }
 
-.streamer-card{
+body{
+background:#090909;
+overflow:hidden;
 display:flex;
+justify-content:center;
 align-items:center;
-gap:10px;
-padding:10px;
-background:#111;
-border:1px solid rgba(255,0,0,.3);
-border-radius:12px;
-text-decoration:none;
-color:#fff;
-transition:.2s;
+height:100vh;
 }
 
-.streamer-card:hover{
-background:#1d1d1d;
-transform:scale(1.03);
-border-color:red;
-}
-
-.streamer-card img{
-width:42px;
-height:42px;
-border-radius:50%;
-object-fit:cover;
-}
-
-.streamer-card span{
-font-size:14px;
-font-weight:bold;
-}
-/* ARKA PLAN */
-.background{
-position:fixed;
+#intro{
+position:absolute;
 width:100%;
 height:100%;
-background:
-radial-gradient(circle at center, rgba(255,0,0,0.12), transparent 50%),
-linear-gradient(180deg,#050505,#120000,#050505);
-animation:bgMove 6s infinite alternate;
-z-index:1;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(180deg,#070707,#1b0000,#070707);
+animation:bg 6s infinite alternate;
 }
 
-@keyframes bgMove{
+@keyframes bg{
 0%{filter:brightness(1);}
-100%{filter:brightness(1.25);}
+100%{filter:brightness(1.3);}
 }
 
-/* INTRO */
-#intro{
-position:fixed;
-inset:0;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:100;
-overflow:hidden;
-background:#050505;
-}
-
-/* LOGO PARÇALARI */
-.logo-half{
-position:absolute;
+.logo{
 width:340px;
-height:340px;
-background-image:url('logo.png');
-background-size:340px 340px;
-background-repeat:no-repeat;
+opacity:0;
+transform:scale(.2) rotate(-20deg);
+animation:intro 3s forwards;
 filter:drop-shadow(0 0 40px red);
-opacity:0;
 }
 
-/* SOL PARÇA */
-.left{
-background-position:left center;
-clip-path:polygon(0 0,50% 0,50% 100%,0 100%);
-animation:leftAnim 4.5s forwards;
-}
-
-/* SAĞ PARÇA */
-.right{
-background-position:right center;
-clip-path:polygon(50% 0,100% 0,100% 100%,50% 100%);
-animation:rightAnim 4.5s forwards;
-}
-
-/* SOL ANİMASYON */
-@keyframes leftAnim{
+@keyframes intro{
 0%{
 opacity:0;
-transform:scale(.2) rotate(-20deg) translateX(0);
-}
-20%{
-opacity:1;
+transform:scale(.2) rotate(-20deg);
 }
 40%{
-transform:scale(1.1) rotate(0deg) translateX(0);
-}
-65%{
-transform:scale(1) translateX(0);
 opacity:1;
+}
+70%{
+transform:scale(1.15) rotate(0deg);
 }
 100%{
-transform:translateX(-500px) rotate(-8deg);
-opacity:0;
-}
-}
-
-/* SAĞ ANİMASYON */
-@keyframes rightAnim{
-0%{
-opacity:0;
-transform:scale(.2) rotate(20deg) translateX(0);
-}
-20%{
 opacity:1;
-}
-40%{
-transform:scale(1.1) rotate(0deg) translateX(0);
-}
-65%{
-transform:scale(1) translateX(0);
-opacity:1;
-}
-100%{
-transform:translateX(500px) rotate(8deg);
-opacity:0;
+transform:scale(1);
 }
 }
-
-/* ANA EKRAN */
-#main{
-position:fixed;
-inset:0;
-display:flex;
-justify-content:center;
-align-items:center;
-opacity:0;
-z-index:5;
-animation:showMain 1s forwards;
-animation-delay:4.5s;
-}
-
-@keyframes showMain{
-to{opacity:1;}
-}
-
-.center-text{
-text-align:center;
-}
-
-.center-text h1{
-font-size:42px;
-letter-spacing:4px;
-color:#ff2b2b;
-text-shadow:0 0 20px red;
-margin-bottom:10px;
-}
-
-.center-text p{
-color:#ccc;
-font-size:18px;
-}
-
-/* SPOTIFY PLAYLIST */
-.player{
+  .player{
 position:fixed;
 right:25px;
 bottom:25px;
-width:340px;
-background:rgba(10,10,10,.78);
-backdrop-filter:blur(12px);
+width:320px;
+background:rgba(0,0,0,.75);
 border:1px solid rgba(255,0,0,.35);
-border-radius:22px;
+border-radius:18px;
 padding:18px;
-z-index:20;
-box-shadow:0 0 25px rgba(255,0,0,.18);
+color:#fff;
+backdrop-filter:blur(10px);
+box-shadow:0 0 20px rgba(255,0,0,.2);
 }
 
 .player-title{
-font-size:13px;
-color:#ff4d4d;
+color:#ff3b3b;
+font-size:14px;
+margin-bottom:10px;
 letter-spacing:2px;
-margin-bottom:6px;
 }
 
 .song-name{
 font-size:18px;
-font-weight:700;
-margin-bottom:16px;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
+font-weight:bold;
+margin-bottom:15px;
 }
 
 .controls{
 display:flex;
 justify-content:center;
-align-items:center;
-gap:18px;
-margin-bottom:16px;
+gap:15px;
 }
 
-.control-btn{
-width:42px;
-height:42px;
-border-radius:50%;
+.controls button{
+width:48px;
+height:48px;
 border:none;
-cursor:pointer;
-font-size:18px;
+border-radius:50%;
 background:#1b1b1b;
-color:white;
-transition:.2s;
-}
-
-.control-btn:hover{
-background:#ff2b2b;
-transform:scale(1.08);
-}
-
-.play-btn{
-width:56px;
-height:56px;
-font-size:22px;
-background:#ff2b2b;
-}
-
-.progress{
-width:100%;
-height:6px;
-background:#222;
-border-radius:999px;
-overflow:hidden;
-cursor:pointer;
-margin-bottom:14px;
-}
-
-.progress-fill{
-height:100%;
-width:0%;
-background:linear-gradient(90deg,#ff2b2b,#ff6b6b);
-transition:width .1s linear;
-}
-
-.time-row{
-display:flex;
-justify-content:space-between;
-font-size:12px;
-color:#bdbdbd;
-margin-bottom:14px;
-}
-
-.volume-row{
-display:flex;
-align-items:center;
-gap:10px;
-margin-bottom:14px;
-}
-
-.volume-row span{
-font-size:16px;
-}
-
-#volume{
-flex:1;
-accent-color:#ff2b2b;
-}
-
-.playlist{
-border-top:1px solid rgba(255,255,255,.08);
-padding-top:12px;
-display:flex;
-flex-direction:column;
-gap:8px;
-}
-
-.playlist-item{
-padding:10px 12px;
-border-radius:12px;
-background:rgba(255,255,255,.03);
+color:#fff;
+font-size:18px;
 cursor:pointer;
 transition:.2s;
-font-size:14px;
 }
 
-.playlist-item:hover{
-background:rgba(255,0,0,.12);
-}
-
-.playlist-item.active{
-background:rgba(255,0,0,.22);
-border:1px solid rgba(255,0,0,.35);
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-.logo-half{
-width:240px;
-height:240px;
-background-size:240px 240px;
-}
-
-.player{
-width:calc(100% - 24px);
-right:12px;
-bottom:12px;
-}
+.controls button:hover{
+background:#ff2b2b;
+transform:scale(1.1);
 }
 </style>
 </head>
 
 <body>
+<div id="intro">
 
-<div class='background'></div>
-
-<!-- INTRO -->
-<div id='intro'>
-<div class='logo-half left'></div>
-<div class='logo-half right'></div>
-</div>
-
-<!-- ANA EKRAN -->
-<div id='main'>
-<div class='center-text'>
-<h1>ZERIX CITY</h1>
-<p>Loading streamers and server assets...</p>
-</div>
-</div>
-
-<!-- PLAYLIST -->
-<div class='player'>
-<div class='player-title'>ZERIX PLAYLIST</div>
-  <div class="streamers">
-
-<a href="https://kick.com/jereyss" target="_blank" class="streamer-card">
-<img src="https://unavatar.io/kick/jereyss">
-<span>Jereyss</span>
-</a>
-
-<a href="https://kick.com/fixtoleranss" target="_blank" class="streamer-card">
-<img src="https://unavatar.io/kick/fixtoleranss">
-<span>Fixtoleranss</span>
-</a>
-
-<a href="https://kick.com/yayinci3" target="_blank" class="streamer-card">
-<img src="https://unavatar.io/kick/yayinci3">
-<span>Yayıncı3</span>
-</a>
-
-<a href="https://kick.com/yayinci4" target="_blank" class="streamer-card">
-<img src="https://unavatar.io/kick/yayinci4">
-<span>Yayıncı4</span>
-</a>
-
-<a href="https://kick.com/yayinci5" target="_blank" class="streamer-card">
-<img src="https://unavatar.io/kick/yayinci5">
-<span>Yayıncı5</span>
-</a>
-
-<a href="https://kick.com/yayinci6" target="_blank" class="streamer-card">
-<img src="https://unavatar.io/kick/yayinci6">
-<span>Yayıncı6</span>
-</a>
+    <img src="logo.png" class="logo">
 
 </div>
 
-<div class='song-name' id='songName'>music1.mp3</div>
-<div id="playlist" class="playlist"></div>
-<div class='controls'>
-<button class='control-btn' id='prevBtn'>⏮</button>
-<button class='control-btn play-btn' id='playBtn'>▶</button>
-<button class='control-btn' id='nextBtn'>⏭</button>
-</div>
+<div class="player">
 
-<div class='progress' id='progress'>
-<div class='progress-fill' id='progressFill'></div>
-</div>
 
-<div class='time-row'>
-<span id='currentTime'>0:00</span>
-<span id='duration'>0:00</span>
-</div>
-
-<div class='volume-row'>
-<span>🔊</span>
-<input type='range' id='volume' min='0' max='1' step='0.01' value='0.25'>
+<div id="intro">
+ 
+<div class="player">
 </div>
 
 
+</script>
+<div class="player">
+    <div class="player-title">ZERIX PLAYLIST</div>
 
-<a href="https://kick.com/jereyss" target="_blank" class="streamer-card">
-<img src="https://unavatar.io/kick/jereyss">
-<span>Jereyss</span>
-</a>
+    <div class="song-name" id="songName">music1.mp3</div>
 
-<a href="https://kick.com/fixtoleranss" target="_blank" class="streamer-card">
-<img src="https://unavatar.io/kick/fixtoleranss">
-<span>Fixtoleranss</span>
-</a>
-
-<a href="https://kick.com/yayinci3" target="_blank" class="streamer-card">
-<img src="https://unavatar.io/kick/yayinci3">
-<span>Yayıncı3</span>
-</a>
-
-<a href="https://kick.com/yayinci4" target="_blank" class="streamer-card">
-<img src="https://unavatar.io/kick/yayinci4">
-<span>Yayıncı4</span>
-</a>
-
-<a href="https://kick.com/yayinci5" target="_blank" class="streamer-card">
-<img src="https://unavatar.io/kick/yayinci5">
-<span>Yayıncı5</span>
-</a>
-
-<a href="https://kick.com/yayinci6" target="_blank" class="streamer-card">
-<img src="https://unavatar.io/kick/yayinci6">
-<span>Yayıncı6</span>
-</a>
-
+    <div class="controls">
+      <div class="volume-box">
+    <span>🔊</span>
+    <input type="range" id="volume" min="0" max="1" step="0.01" value="0.25">
 </div>
 
-<audio id='audio'></audio>
+<div class="progress" id="progress">
+    <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<div class="time">
+    <span id="currentTime">0:00</span>
+    <span id="duration">0:00</span>
+</div>
+
+<div id="playlist"></div>
+
+<audio id="audio"></audio>
+        <button id="prevBtn">⏮</button>
+        <button id="playBtn">▶</button>
+        <button id="nextBtn">⏭</button>
+      <div class="volume-box">
+    <span>🔊</span>
+    <input type="range" id="volume" min="0" max="1" step="0.01" value="0.25">
+</div>
+
+<audio id="audio"></audio>
+    </div>
+
+    <audio id="audio"></audio>
+</div>
 
 <script>
 const songs = [
-  {
-    name: "Şarkı 1",
-    artist: "ZERIX CITY",
-    file: "./music1.mp3"
-  },
-  {
-    name: "Şarkı 2",
-    artist: "ZERIX CITY",
-    file: "./music2.mp3"
-  },
-  {
-    name: "Şarkı 3",
-    artist: "ZERIX CITY",
-    file: "./music3.mp3"
-  }
+    {
+        name: "music1.mp3",
+        file: "music1.mp3"
+    },
+    {
+        name: "music2.mp3",
+        file: "music2.mp3"
+    },
+    {
+        name: "music3.mp3",
+        file: "music3.mp3"
+    }
 ];
 
-const audio = document.getElementById('audio');
-const playBtn = document.getElementById('playBtn');
-const nextBtn = document.getElementById('nextBtn');
-const prevBtn = document.getElementById('prevBtn');
-const volume = document.getElementById('volume');
-const songName = document.getElementById('songName');
-const progress = document.getElementById('progress');
-const progressFill = document.getElementById('progressFill');
-const currentTimeEl = document.getElementById('currentTime');
-const durationEl = document.getElementById('duration');
-const playlistEl = document.getElementById('playlist');
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("playBtn");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const volume = document.getElementById("volume");
+const songName = document.getElementById("songName");
 
 let currentSong = 0;
-let isPlaying = false;
 
-function renderPlaylist(){
-  playlistEl.innerHTML = '';
-
-  songs.forEach((song, index)=>{
-    const item = document.createElement('div');
-    item.className = 'playlist-item' + (index === currentSong ? ' active' : '');
-    item.textContent = '♪ ' + song.name;
-
-    item.onclick = ()=>{
-      currentSong = index;
-      loadSong(currentSong);
-      playMusic();
-    };
-
-    playlistEl.appendChild(item);
-  });
-}
+audio.volume = volume.value;
 
 function loadSong(index){
-  audio.src = songs[index].file;
-  songName.textContent = songs[index].name;
-  renderPlaylist();
+    currentSong = index;
+    audio.src = songs[index].file;
+    songName.textContent = songs[index].name;
+    audio.load();
 }
 
-async function playMusic(){
-    try{
-        await audio.play();
-        isPlaying = true;
-        playBtn.textContent = '⏸';
-    }catch(err){
-        console.log("Müzik başlatılamadı:", err);
+playBtn.onclick = () => {
+    if(audio.paused){
+        audio.play();
+        playBtn.innerHTML = "⏸";
+    }else{
+        audio.pause();
+        playBtn.innerHTML = "▶";
     }
-}
-
-function pauseMusic(){
-  audio.pause();
-  isPlaying = false;
-  playBtn.textContent = '▶';
-}
-
-playBtn.onclick = ()=>{
-  if(isPlaying){
-    pauseMusic();
-  }else{
-    playMusic();
-  }
 };
 
-nextBtn.onclick = ()=>{
-  currentSong = (currentSong + 1) % songs.length;
-  loadSong(currentSong);
-  playMusic();
+nextBtn.onclick = () => {
+    currentSong++;
+    if(currentSong >= songs.length) currentSong = 0;
+    loadSong(currentSong);
+    audio.play();
+    playBtn.innerHTML = "⏸";
 };
 
-prevBtn.onclick = ()=>{
-  currentSong = (currentSong - 1 + songs.length) % songs.length;
-  loadSong(currentSong);
-  playMusic();
+prevBtn.onclick = () => {
+    currentSong--;
+    if(currentSong < 0) currentSong = songs.length - 1;
+    loadSong(currentSong);
+    audio.play();
+    playBtn.innerHTML = "⏸";
 };
 
-volume.oninput = ()=>{
-  audio.volume = volume.value;
+volume.oninput = () => {
+    audio.volume = volume.value;
 };
 
-audio.addEventListener('timeupdate', ()=>{
-  if(audio.duration){
-    const percent = (audio.currentTime / audio.duration) * 100;
-    progressFill.style.width = percent + '%';
-    currentTimeEl.textContent = formatTime(audio.currentTime);
-    durationEl.textContent = formatTime(audio.duration);
-  }
-});
-
-progress.onclick = (e)=>{
-  const rect = progress.getBoundingClientRect();
-  const percent = (e.clientX - rect.left) / rect.width;
-  audio.currentTime = percent * audio.duration;
-};
-
-audio.addEventListener('ended', ()=>{
-  currentSong = (currentSong + 1) % songs.length;
-  loadSong(currentSong);
-  playMusic();
-});
-
-function formatTime(time){
-  const minutes = Math.floor(time / 60);
-  const seconds = Math.floor(time % 60).toString().padStart(2, '0');
-  return `${minutes}:${seconds}`;
-}
-
-/* İlk şarkı */
-loadSong(currentSong);
-audio.volume = 0.25;
-
-/* Kullanıcı ilk tıklayınca otomatik başlat */
-document.addEventListener('click', ()=>{
-  if(!isPlaying){
-    playMusic();
-  }
-},{ once:true });
-
-/* Intro bitince ana ekran */
-setTimeout(()=>{
-  document.getElementById('intro').style.display = 'none';
-}, 5000);
+loadSong(0);
 </script>
-
 </body>
 </html>
